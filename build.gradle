@@ -1,14 +1,22 @@
-apply plugin: 'java'
-apply plugin: 'idea'
 
-group = 'Those Flowers'
-version = '0.1.0'
-compileJava.options.encoding = 'UTF-8'
+allprojects {
+	apply plugin: 'java'
+	apply plugin: 'idea'
 
-repositories {
-	mavenCentral()
+	group = 'Those Flowers'
+	version = '0.1.0'
+	compileJava.options.encoding = 'UTF-8'
+
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {        // 配置项目的jar包依赖
+		testCompile 'junit:junit:4.11'
+	}
 }
 
-dependencies {        // 配置项目的jar包依赖
+project (':monitor-worker') {
 
 }

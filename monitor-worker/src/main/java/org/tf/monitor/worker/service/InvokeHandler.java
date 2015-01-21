@@ -5,28 +5,28 @@ package org.tf.monitor.worker.service;
  */
 public class InvokeHandler {
 
-    private BucketQueue bucketQueue;
+    private ConveyorQueue conveyorQueue;
     private long lastInvokeTime;
     private int timeWidth;
 
     public InvokeHandler(int bucketSize, int timeWidth) {
-        this.bucketQueue = new BucketQueue(bucketSize);
+        this.conveyorQueue = new ConveyorQueue(bucketSize);
         this.timeWidth = timeWidth;
     }
 
     public void updateInvoke(int count, long currentTimeSec) {
-        int shifted = (int)((currentTimeSec - lastInvokeTime) / timeWidth);
-        System.out.println(String.format("currentTimeSec: %s lastInvokeTime: %s shifted: %s", currentTimeSec, lastInvokeTime, shifted));
-        bucketQueue.shifted(shifted);
-        if (shifted == 0) {
-            bucketQueue.update(count);
-        } else {
-            bucketQueue.add(count);
-        }
-        lastInvokeTime = currentTimeSec;
+        update(currentTimeSec);
+        conveyorQueue.add(count);
     }
 
-    public long count() {
-        return bucketQueue.getSum();
+    public long invokeCount(long currentTimeSec) {
+        update(currentTimeSec);
+        return conveyorQueue.getTotalSum();
+    }
+
+    private void update(long currentTimeSec) {
+        int shifted = (int)((currentTimeSec - lastInvokeTime) / timeWidth);
+        conveyorQueue.shifted(shifted);
+        lastInvokeTime = currentTimeSec;
     }
 }

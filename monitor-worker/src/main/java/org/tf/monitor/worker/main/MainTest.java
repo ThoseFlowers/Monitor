@@ -19,8 +19,9 @@ public class MainTest {
             TimeUnit.SECONDS.sleep(1);
             minuteHourCounter.add(mockCount, currentSec);
         }
+        long current = System.currentTimeMillis() / 1000;
         System.out.println(counterMap);
-        System.out.println("mc: " + minuteHourCounter.minuteCount());
-        System.out.println("hc: " + minuteHourCounter.hourCount());
+        System.out.println("mc: " + minuteHourCounter.minuteCount(current));
+        System.out.println("hc: " + minuteHourCounter.hourCount(current));
     }
 }

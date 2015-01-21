@@ -26,11 +26,11 @@ public class MinuteHourCounter {
         hourHandler.updateInvoke(count, timeSec);
     }
 
-    public long minuteCount() {
-        return minuteHandler.count();
+    public long minuteCount(long timeSec) {
+        return minuteHandler.invokeCount(timeSec);
     }
 
-    public long hourCount() {
-        return hourHandler.count();
+    public long hourCount(long timeSec) {
+        return hourHandler.invokeCount(timeSec);
     }
 }
